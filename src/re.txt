@@ -1,0 +1,4 @@
+web-vitals
+mammoth
+pdfjs-dist@2.16.105
+tiktoken@latest

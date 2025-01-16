@@ -1,0 +1,137 @@
+.materials-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Материалы слева, QuizGenerator справа */
+  gap: 20px;
+  padding: 2rem;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+}
+
+.materials-header {
+  display: flex;
+  justify-content: space-between; /* Разделение заголовка и кнопки */
+  align-items: center;
+}
+
+.materials-header h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.add-material-btn {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-material-btn:hover {
+  background-color: #1a2a3a;
+}
+
+.add-material-btn:active {
+  transform: scale(0.98);
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Увеличена минимальная ширина */
+  gap: 20px;
+}
+
+.material-item {
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px; /* Расстояние между элементами */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.material-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.material-item .select-checkbox {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #2c3e50; /* Цвет чекбокса */
+}
+
+.material-details h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.material-details p {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.material-actions {
+  display: flex;
+  gap: 10px; /* Расстояние между кнопками */
+  justify-content: center; /* Выравнивание кнопок по центру */
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%; /* Кнопки всегда остаются внутри блока */
+}
+
+.material-actions button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+.material-actions button:hover {
+  background-color: #1a2a3a;
+}
+
+.material-actions button:active {
+  transform: scale(0.98);
+}
+
+.material-actions .delete-btn {
+  background-color: #e63946;
+}
+
+.material-actions .delete-btn:hover {
+  background-color: #a71d2a;
+}
+
+.quiz-generator-section {
+  /* Removed redundant border, padding, and extra styling */
+  border: none; /* Remove extra border */
+  box-shadow: none; /* Disable shadow */
+  margin: 0; /* Adjust positioning without additional offset */
+  padding: 0; /* No padding needed here */
+}

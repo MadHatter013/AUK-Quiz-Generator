@@ -1,0 +1,63 @@
+/* Header Styles */
+.app-header {
+  display: flex;
+  flex-direction: column; /* Разместить заголовок и ссылки в столбик */
+  align-items: center; /* Центрировать содержимое по горизонтали */
+  background-color: #0078d4; /* Синий фон */
+  padding: 20px 10px; /* Отступы внутри хедера */
+  color: white; /* Белый текст */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 28px; /* Увеличенный шрифт */
+  font-weight: bold;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 20px; /* Расстояние между ссылками */
+  margin-top: 10px; /* Отступ сверху для навигации */
+}
+
+.app-header nav a {
+  color: white; /* Белый текст ссылок */
+  text-decoration: none; /* Убрать подчеркивание */
+  font-size: 18px; /* Размер текста */
+  font-weight: bold; /* Жирный шрифт */
+  transition: color 0.3s ease; /* Плавный переход цвета при наведении */
+}
+
+.app-header nav a:hover {
+  color: #ffd700; /* Желтый цвет при наведении */
+}
+
+/* Main Page Styles */
+main {
+  padding: 20px;
+}
+
+.materials-page {
+  padding: 20px;
+}
+
+.material-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+}
+
+.material-item h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.material-item p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}

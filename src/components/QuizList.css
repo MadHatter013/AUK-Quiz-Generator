@@ -1,0 +1,96 @@
+.quiz-list {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  justify-items: center;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.quiz-card {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; 
+  max-width: 300px;
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quiz-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.quiz-card h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-card .status {
+  margin: 0.75rem 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 15px;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.quiz-card .status.ready {
+  background-color: #e0f7e9; 
+  color: #2d862d;
+}
+
+.quiz-card .status.processing {
+  background-color: #fff6da;
+  color: #b07d15;
+}
+
+.quiz-card .status.error {
+  background-color: #fdecea;
+  color: #a71d2a;
+}
+
+.quiz-card .buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.quiz-card .buttons button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.quiz-card .buttons button:hover {
+  background-color: #1a2a3a;
+}
+
+.quiz-card .buttons button.delete {
+  background-color: #e63946;
+}
+
+.quiz-card .buttons button.delete:hover {
+  background-color: #a71d2a;
+}
+
+.quiz-card .buttons button:active {
+  transform: scale(0.98);
+}
