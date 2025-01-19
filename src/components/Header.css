@@ -28,19 +28,27 @@
   margin-right: 1rem;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
 .header-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-nav {
   display: flex;
   gap: 1rem;
-  margin-left: auto;
+  justify-content: flex-end;
+  margin-right: 1rem;
 }
 
 .header-link {
@@ -75,4 +83,27 @@
   .header-logo img {
     height: 30px;
   }
+}
+
+.header-logout-button {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.header-logout-button:hover {
+  background-color: #c0392b;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
 }

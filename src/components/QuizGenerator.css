@@ -87,7 +87,6 @@
   padding: 2rem;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .quiz-generator-form {
     padding: 1.5rem;
