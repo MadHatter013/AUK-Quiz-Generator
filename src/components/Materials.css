@@ -1,6 +1,6 @@
 .materials-container {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Материалы слева, QuizGenerator справа */
+  grid-template-columns: 2fr 1fr;
   gap: 20px;
   padding: 2rem;
   background-color: #f7f9fc;
@@ -9,7 +9,7 @@
 
 .materials-header {
   display: flex;
-  justify-content: space-between; /* Разделение заголовка и кнопки */
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -43,7 +43,7 @@
 
 .materials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Увеличена минимальная ширина */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
@@ -58,7 +58,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px; /* Расстояние между элементами */
+  gap: 10px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -74,7 +74,7 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #2c3e50; /* Цвет чекбокса */
+  accent-color: #2c3e50;
 }
 
 .material-details h3 {
@@ -92,11 +92,11 @@
 
 .material-actions {
   display: flex;
-  gap: 10px; /* Расстояние между кнопками */
-  justify-content: center; /* Выравнивание кнопок по центру */
+  gap: 10px;
+  justify-content: center;
   margin-top: 10px;
   box-sizing: border-box;
-  width: 100%; /* Кнопки всегда остаются внутри блока */
+  width: 100%;
 }
 
 .material-actions button {
@@ -129,9 +129,8 @@
 }
 
 .quiz-generator-section {
-  /* Removed redundant border, padding, and extra styling */
-  border: none; /* Remove extra border */
-  box-shadow: none; /* Disable shadow */
-  margin: 0; /* Adjust positioning without additional offset */
-  padding: 0; /* No padding needed here */
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
 }

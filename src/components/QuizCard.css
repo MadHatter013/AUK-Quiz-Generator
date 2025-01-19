@@ -99,7 +99,7 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .quiz-card .buttons button.download:hover {
-  background-color: #1a2a3a; /* Более светлый оттенок */
+  background-color: #1a2a3a; 
 }
 
 .quiz-card .buttons button.download:active {

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import QuizGenerator from "./QuizGenerator";
 import CustomAlert from "./CustomAlert";
+import { getAuthToken } from "./CallbackHandler";
+import config from "./config";
+
 import "./Materials.css";
 
-const API_URL = "https://quality-owl-simply.ngrok-free.app/materials";
+// const API_URL = "https://quality-owl-simply.ngrok-free.app/materials";
+const API_URL = `${config.apiUrl}/materials`;
 
 const MOCK_MATERIALS = [
   { id: 1, name: "Mock Material 1", filename: "mock-material-1.txt", file_url: "http://localhost:3000/mock-material-1.txt" },
@@ -19,12 +23,18 @@ const Materials = () => {
 
   const fetchMaterials = async () => {
     try {
+      const token = getAuthToken();
+      if (!token) {
+        console.error("Authorization token is missing");
+        return;
+      }
+
       const response = await fetch(API_URL, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
+          "Authorization": token,
           "ngrok-skip-browser-warning": "6024",
-          "Connection":"keep-alive", 
+          "Connection": "keep-alive",
         },
       });
 
@@ -83,10 +93,16 @@ const Materials = () => {
       formData.append("filename", file.name);
 
       try {
+        const token = getAuthToken();
+        if (!token) {
+          console.error("Authorization token is missing");
+          return;
+        }
+
         const response = await fetch(`${API_URL}/`, {
           method: "POST",
           headers: {
-            "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
+            "Authorization": token,
           },
           body: formData,
         });
@@ -113,11 +129,17 @@ const Materials = () => {
     if (!newName) return;
 
     try {
+      const token = getAuthToken();
+      if (!token) {
+        console.error("Authorization token is missing");
+        return;
+      }
+
       const response = await fetch(`${API_URL}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
+          "Authorization": token,
         },
         body: JSON.stringify({ name: newName }),
       });
@@ -143,10 +165,16 @@ const Materials = () => {
     if (!window.confirm("Are you sure you want to delete this material?")) return;
 
     try {
+      const token = getAuthToken();
+      if (!token) {
+        console.error("Authorization token is missing");
+        return;
+      }
+
       const response = await fetch(`${API_URL}/${id}`, {
         method: "DELETE",
         headers: {
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
+          "Authorization": token,
         },
       });
 
@@ -167,10 +195,16 @@ const Materials = () => {
 
   const handleDownload = async (url, filename) => {
     try {
+      const token = getAuthToken();
+      if (!token) {
+        console.error("Authorization token is missing");
+        return;
+      }
+
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
+          "Authorization": token,
           "ngrok-skip-browser-warning": "6024",
         },
       });
