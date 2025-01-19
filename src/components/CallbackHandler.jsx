@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import config from "./config";
 
 export const getAuthToken = () => sessionStorage.getItem("authToken");
+export const getUserEmail = () => sessionStorage.getItem("userEmail"); // Получение email из sessionStorage
 
 const CallbackHandler = () => {
     const navigate = useNavigate();
@@ -17,8 +18,7 @@ const CallbackHandler = () => {
 
             const exchangeCodeForToken = async (code) => {
                 const tokenUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
-                const clientId = "06d23a88-f337-42e4-a8b2-77ab433ab50d"; 
-                // const redirectUri = "http://localhost:3000/auth/microsoft_graph/callback";
+                const clientId = "06d23a88-f337-42e4-a8b2-77ab433ab50d";
                 const redirectUri = config.redirectUri;
                 const codeVerifier = localStorage.getItem("code_verifier");
 
@@ -74,6 +74,11 @@ const CallbackHandler = () => {
                         const authToken = `${serverResponseData.token_type} ${serverResponseData.auth_token}`;
                         sessionStorage.setItem("authToken", authToken);
                         console.log("Auth Token saved to sessionStorage:", authToken);
+
+                        // Сохраняем email в sessionStorage
+                        if (serverResponseData.user?.email) {
+                            sessionStorage.setItem("userEmail", serverResponseData.user.email);
+                        }
                     } else {
                         console.error("Invalid server response: Missing token_type or auth_token");
                     }
