@@ -32,7 +32,7 @@ const Header = () => {
           {userEmail && <div className="header-user-email">{userEmail}</div>}
           {(userEmail || authToken) && (
             <button className="header-logout-button" onClick={handleLogout}>
-              Выйти
+              Log out
             </button>
           )}
         </div>
