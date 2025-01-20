@@ -15,7 +15,7 @@
   max-width: 400px;
   border: 2px solid #d1d5db;
   box-sizing: border-box;
-  margin: 0 auto; /* Центрирование */
+  margin: 0 auto;
 }
 
 .quiz-generator-form h2 {
@@ -87,7 +87,6 @@
   padding: 2rem;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .quiz-generator-form {
     padding: 1.5rem;

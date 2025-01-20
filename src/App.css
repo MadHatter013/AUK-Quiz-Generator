@@ -1,39 +1,37 @@
-/* Header Styles */
 .app-header {
   display: flex;
-  flex-direction: column; /* Разместить заголовок и ссылки в столбик */
-  align-items: center; /* Центрировать содержимое по горизонтали */
-  background-color: #0078d4; /* Синий фон */
-  padding: 20px 10px; /* Отступы внутри хедера */
-  color: white; /* Белый текст */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+  flex-direction: column;
+  align-items: center;
+  background-color: #0078d4;
+  padding: 20px 10px;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .app-header h1 {
   margin: 0;
-  font-size: 28px; /* Увеличенный шрифт */
+  font-size: 28px;
   font-weight: bold;
 }
 
 .app-header nav {
   display: flex;
-  gap: 20px; /* Расстояние между ссылками */
-  margin-top: 10px; /* Отступ сверху для навигации */
+  gap: 20px;
+  margin-top: 10px;
 }
 
 .app-header nav a {
-  color: white; /* Белый текст ссылок */
-  text-decoration: none; /* Убрать подчеркивание */
-  font-size: 18px; /* Размер текста */
-  font-weight: bold; /* Жирный шрифт */
-  transition: color 0.3s ease; /* Плавный переход цвета при наведении */
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .app-header nav a:hover {
-  color: #ffd700; /* Желтый цвет при наведении */
+  color: #ffd700;
 }
 
-/* Main Page Styles */
 main {
   padding: 20px;
 }

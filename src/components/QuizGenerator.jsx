@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./QuizGenerator.css";
 import CustomAlert from "./CustomAlert";
 import "./CustomAlert.css";
+import { getAuthToken } from "./CallbackHandler";
 
 const QuizGenerator = ({ selectedMaterials }) => {
   const [quizName, setQuizName] = useState("Japan 13");
@@ -13,7 +14,7 @@ const QuizGenerator = ({ selectedMaterials }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     const requestPayload = {
       text: quizName,
       material: materialText,
@@ -21,26 +22,33 @@ const QuizGenerator = ({ selectedMaterials }) => {
       answers_number: answersNumber,
       material_ids: selectedMaterials,
     };
-  
+
     try {
+      const token = getAuthToken();
+      if (!token) {
+        console.error("Authorization token is missing");
+        CustomAlert("Authorization token is missing. Please log in again.");
+        return;
+      }
+
       const response = await fetch("https://quality-owl-simply.ngrok-free.app/quizzes/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
+          "Authorization": token,
           "ngrok-skip-browser-warning": "6024",
         },
         body: JSON.stringify(requestPayload),
       });
-  
+
       if (!response.ok) {
-        const errorText = await response.text(); 
+        const errorText = await response.text();
         throw new Error(`Failed to generate quiz: ${errorText}`);
       }
-  
-      const result = await response.json(); 
+
+      const result = await response.json();
       console.log("Quiz generated successfully:", result);
-  
+
       CustomAlert("Quiz generation request sent successfully!");
     } catch (error) {
       console.error("Error sending request:", error);
@@ -49,7 +57,6 @@ const QuizGenerator = ({ selectedMaterials }) => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="quiz-generator">

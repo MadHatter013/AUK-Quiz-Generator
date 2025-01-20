@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./QuizReviewModal.css";
+import { getAuthToken } from "./CallbackHandler";
 
 const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
   const [questions, setQuestions] = useState(quiz?.questions || []);
@@ -13,6 +14,17 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
 
   const fetchWithLogs = async (url, options, successCallback) => {
     try {
+      const token = getAuthToken();
+      if (!token) {
+        console.error("Authorization token is missing");
+        return;
+      }
+
+      options.headers = {
+        ...options.headers,
+        Authorization: token,
+      };
+
       const response = await fetch(url, options);
       if (!response.ok) {
         throw new Error(`HTTP Error: ${response.status}`);
@@ -28,18 +40,15 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
   const handleAddQuestion = async () => {
     const newQuestionText = prompt("Enter the text for the new question:");
     if (!newQuestionText) return;
-  
+
     const url = `${apiUrl}/${quiz.id}/questions`;
     const body = { text: newQuestionText };
-  
+
     fetchWithLogs(
       url,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       },
       (newQuestion) => {
@@ -50,7 +59,6 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
       }
     );
   };
-  
 
   const handleUpdateQuestion = async (questionIndex) => {
     const question = questions[questionIndex];
@@ -79,8 +87,7 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
 
     fetchWithLogs(
       url,
-      { method: "DELETE",
-        headers: {"Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`, },},
+      { method: "DELETE" },
       () => {
         setQuestions((prev) => prev.filter((_, index) => index !== questionIndex));
       }
@@ -99,7 +106,7 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
       url,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`, },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       },
       (newAnswer) => {
@@ -119,7 +126,7 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
       url,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`, },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(option),
       },
       (updatedOption) => {
@@ -137,10 +144,7 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
 
     fetchWithLogs(
       url,
-      { method: "DELETE",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`, },
-
-       },
+      { method: "DELETE" },
       () => {
         const updatedQuestions = [...questions];
         updatedQuestions[questionIndex].answers.splice(optionIndex, 1);
@@ -189,33 +193,24 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
                         const updatedQuestions = [...questions];
                         updatedQuestions[questionIndex].answers[optionIndex].correct = isChecked;
                         setQuestions(updatedQuestions);
-                      
+
                         const url = `${apiUrl}/${quiz.id}/questions/${question.id}/answers/${answer.id}`;
-                        fetch(url, {
-                          method: "PUT",
-                          headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MzcwMjYwMjV9.S2JTLy91iQaZ3Ky6TD8glscRD2BdomubLsYQvdXRNJM`,
+                        fetchWithLogs(
+                          url,
+                          {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ ...answer, correct: isChecked }),
                           },
-                          body: JSON.stringify({ ...answer, correct: isChecked }),
-                        })
-                          .then((response) => {
-                            if (!response.ok) {
-                              throw new Error(`Failed to update answer status: ${response.statusText}`);
-                            }
-                            return response.json();
-                          })
-                          .then((updatedAnswer) => {
+                          (updatedAnswer) => {
                             const updatedQuestionsFromServer = [...questions];
-                            updatedQuestionsFromServer[questionIndex].answers[optionIndex] = updatedAnswer;
+                            updatedQuestionsFromServer[questionIndex].answers[optionIndex] =
+                              updatedAnswer;
                             setQuestions(updatedQuestionsFromServer);
-                          })
-                          .catch((error) => {
-                            console.error("Error updating answer status:", error);
-                          });
+                          }
+                        );
                       }}
                     />
-
                     <button
                       className="delete-option-button"
                       onClick={() => handleDeleteOption(questionIndex, optionIndex)}
