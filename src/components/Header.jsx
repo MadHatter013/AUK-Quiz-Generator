@@ -1,19 +1,27 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getUserEmail, getAuthToken } from "./CallbackHandler";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
+import config from "./config";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const userEmail = getUserEmail();
-  const authToken = getAuthToken();
+  const location = useLocation();
+  const [userEmail, setUserEmail] = useState(sessionStorage.getItem("userEmail") || "");
+  const [authToken, setAuthToken] = useState(sessionStorage.getItem("authToken") || "");
 
   const handleLogout = () => {
     sessionStorage.removeItem("authToken");
     sessionStorage.removeItem("userEmail");
-
-    window.location.href = "https://e3f1-185-223-114-81.ngrok-free.app/auth";
+    window.location.href = `${config.baseUrl}/auth`;
   };
+
+  const handleLogin = () => {
+    window.location.href = `${config.baseUrl}/auth`;
+  };
+
+  useEffect(() => {
+    setUserEmail(sessionStorage.getItem("userEmail") || "");
+    setAuthToken(sessionStorage.getItem("authToken") || "");
+  }, [location]);
 
   return (
     <header className="header">
@@ -30,15 +38,18 @@ const Header = () => {
         </nav>
         <div className="header-right">
           {userEmail && <div className="header-user-email">{userEmail}</div>}
-          {(userEmail || authToken) && (
+          {userEmail || authToken ? (
             <button className="header-logout-button" onClick={handleLogout}>
               Log out
+            </button>
+          ) : (
+            <button className="header-login-button" onClick={handleLogin}>
+              Log in
             </button>
           )}
         </div>
       </div>
     </header>
-
   );
 };
 
