@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./QuizGenerator.css";
 import CustomAlert from "./CustomAlert";
 import "./CustomAlert.css";
-import { getAuthToken } from "./CallbackHandler"; // Импорт функции для получения токена
+import { getAuthToken } from "./CallbackHandler";
 
 const QuizGenerator = ({ selectedMaterials }) => {
   const [quizName, setQuizName] = useState("Japan 13");
@@ -24,7 +24,7 @@ const QuizGenerator = ({ selectedMaterials }) => {
     };
 
     try {
-      const token = getAuthToken(); // Получение токена из sessionStorage
+      const token = getAuthToken();
       if (!token) {
         console.error("Authorization token is missing");
         CustomAlert("Authorization token is missing. Please log in again.");

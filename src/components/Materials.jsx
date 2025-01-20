@@ -6,7 +6,6 @@ import config from "./config";
 
 import "./Materials.css";
 
-// const API_URL = "https://quality-owl-simply.ngrok-free.app/materials";
 const API_URL = `${config.apiUrl}/materials`;
 
 const MOCK_MATERIALS = [

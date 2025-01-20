@@ -7,7 +7,6 @@ const QuizCard = ({ quiz, onRename, onDelete, onReview }) => {
       alert("Download link not available.");
       return;
     }
-    // Подменяем localhost на ngrok URL
     const adjustedUrl = url.startsWith("http://localhost:3000/")
       ? url.replace("http://localhost:3000/", "https://quality-owl-simply.ngrok-free.app/")
       : url;

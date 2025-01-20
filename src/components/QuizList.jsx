@@ -6,7 +6,6 @@ import config from "./config";
 import { getAuthToken } from "./CallbackHandler";
 import "./QuizList.css";
 
-// const API_URL = "https://quality-owl-simply.ngrok-free.app/quizzes";
 const API_URL = `${config.apiUrl}/quizzes`;
 
 const QuizList = () => {

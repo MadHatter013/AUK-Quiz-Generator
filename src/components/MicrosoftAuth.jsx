@@ -20,7 +20,6 @@ async function generateCodeChallenge(codeVerifier) {
 async function exchangeCodeForToken(authCode, codeVerifier) {
     const tokenUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
     const clientId = "06d23a88-f337-42e4-a8b2-77ab433ab50d"; 
-    // const redirectUri = "http://localhost:3000/auth/microsoft_graph/callback";
     const redirectUri = config.redirectUri;
 
     const params = new URLSearchParams({
@@ -49,11 +48,9 @@ async function exchangeCodeForToken(authCode, codeVerifier) {
     return tokenData;
 }
 
-// Компонент React
+
 const MicrosoftAuth = () => {
     const clientId = "06d23a88-f337-42e4-a8b2-77ab433ab50d";
-    // const redirectUri = "http://localhost:3000/auth/microsoft_graph/callback";
-    // const redirectUri = "https://ff51-185-223-114-81.ngrok-free.app/auth/microsoft_graph/callback";
     const redirectUri = config.redirectUri;
 
     const authUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";

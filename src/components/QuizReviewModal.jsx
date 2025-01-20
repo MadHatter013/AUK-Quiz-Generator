@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./QuizReviewModal.css";
-import { getAuthToken } from "./CallbackHandler"; // Импорт функции для получения токена
+import { getAuthToken } from "./CallbackHandler";
 
 const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
   const [questions, setQuestions] = useState(quiz?.questions || []);
@@ -14,7 +14,7 @@ const QuizReviewModal = ({ quiz, onClose, apiUrl }) => {
 
   const fetchWithLogs = async (url, options, successCallback) => {
     try {
-      const token = getAuthToken(); // Получение токена из sessionStorage
+      const token = getAuthToken();
       if (!token) {
         console.error("Authorization token is missing");
         return;

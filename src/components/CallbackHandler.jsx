@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import config from "./config";
 
 export const getAuthToken = () => sessionStorage.getItem("authToken");
-export const getUserEmail = () => sessionStorage.getItem("userEmail"); // Получение email из sessionStorage
+export const getUserEmail = () => sessionStorage.getItem("userEmail");
 
 const CallbackHandler = () => {
     const navigate = useNavigate();
@@ -75,7 +75,6 @@ const CallbackHandler = () => {
                         sessionStorage.setItem("authToken", authToken);
                         console.log("Auth Token saved to sessionStorage:", authToken);
 
-                        // Сохраняем email в sessionStorage
                         if (serverResponseData.user?.email) {
                             sessionStorage.setItem("userEmail", serverResponseData.user.email);
                         }
@@ -95,7 +94,7 @@ const CallbackHandler = () => {
         }
     }, [navigate]);
 
-    return <div>Обработка авторизации...</div>;
+    return <div>Processing authorization...</div>;
 };
 
 export default CallbackHandler;
