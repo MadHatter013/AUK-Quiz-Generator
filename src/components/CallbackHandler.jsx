@@ -53,7 +53,7 @@ const CallbackHandler = () => {
                     const tokenData = await response.json();
                     console.log("Token Data:", tokenData);
 
-                    const serverResponse = await fetch("https://quality-owl-simply.ngrok-free.app/auth/microsoft_graph/api_callback", {
+                    const serverResponse = await fetch(`${config.apiUrl}/auth/microsoft_graph/api_callback`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

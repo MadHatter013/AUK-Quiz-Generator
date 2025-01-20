@@ -3,6 +3,7 @@ import "./QuizGenerator.css";
 import CustomAlert from "./CustomAlert";
 import "./CustomAlert.css";
 import { getAuthToken } from "./CallbackHandler";
+import config from "./config";
 
 const QuizGenerator = ({ selectedMaterials }) => {
   const [quizName, setQuizName] = useState("Japan 13");
@@ -31,7 +32,7 @@ const QuizGenerator = ({ selectedMaterials }) => {
         return;
       }
 
-      const response = await fetch("https://quality-owl-simply.ngrok-free.app/quizzes/", {
+      const response = await fetch(`${config.apiUrl}/quizzes/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

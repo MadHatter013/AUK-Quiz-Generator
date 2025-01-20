@@ -66,7 +66,7 @@ const Materials = () => {
   const getFileUrl = (file_url) => {
     if (!file_url || file_url === "") return null;
     if (file_url.startsWith("http://localhost:3000")) {
-      return file_url.replace("http://localhost:3000", "https://quality-owl-simply.ngrok-free.app");
+      return file_url.replace("http://localhost:3000", config.apiUrl);
     }
     return file_url;
   };
