@@ -25,9 +25,9 @@ const Materials = () => {
       const response = await fetch(API_URL, {
         method: "GET",
         headers: {
-          "Authorization": token,
+          Authorization: token,
           "ngrok-skip-browser-warning": "6024",
-          "Connection": "keep-alive",
+          Connection: "keep-alive",
         },
       });
 
@@ -43,6 +43,114 @@ const Materials = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDeleteMaterial = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this material?")) {
+      return;
+    }
+  
+    try {
+      const token = getAuthToken();
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to delete material.");
+      }
+  
+      fetchMaterials();
+    } catch (error) {
+      console.error("Error deleting material:", error);
+      setAlertMessage("Failed to delete material. Please try again later.");
+    }
+  };
+
+  const handleAddMaterial = async () => {
+    const name = prompt("Enter the name for the new material:");
+    if (!name) return;
+
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", name);
+      formData.append("filename", file.name);
+
+      try {
+        const token = getAuthToken();
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            Authorization: token,
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to add material.");
+        }
+
+        fetchMaterials();
+      } catch (error) {
+        console.error("Error adding material:", error);
+        setAlertMessage("Failed to add material. Please try again later.");
+      }
+    };
+    fileInput.click();
+  };
+
+  const handleRenameMaterial = async (id) => {
+    const newName = prompt("Enter the new name for the material:");
+    if (!newName) return;
+
+    try {
+      const token = getAuthToken();
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ name: newName }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to rename material.");
+      }
+
+      fetchMaterials();
+    } catch (error) {
+      console.error("Error renaming material:", error);
+      setAlertMessage("Failed to rename material. Please try again later.");
+    }
+  };
+
+  const handleDownload = (url, filename) => {
+    if (!url) {
+      alert("Download link not available.");
+      return;
+    }
+
+    // Replace localhost URL if needed
+    const adjustedUrl = url.startsWith("http://localhost:3000")
+      ? url.replace("http://localhost:3000", "https://quality-owl-simply.ngrok-free.app")
+      : url;
+
+    const link = document.createElement("a");
+    link.href = adjustedUrl;
+    link.download = filename || "download";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   useEffect(() => {
@@ -79,6 +187,9 @@ const Materials = () => {
         <div className="materials-section">
           <div className="materials-header">
             <h2>Materials</h2>
+            <button className="add-material-btn" onClick={handleAddMaterial}>
+              Add New Material
+            </button>
           </div>
           {loading ? (
             <p>Loading materials...</p>
@@ -101,18 +212,23 @@ const Materials = () => {
                     </div>
                     <div className="material-actions">
                       <button
+                        onClick={() => handleRenameMaterial(material.id)}
+                        className="rename-btn"
+                      >
+                        Rename
+                      </button>
+                      <button
+                        onClick={() => handleDownload(downloadUrl, material.filename)}
+                        className="download-btn"
+                      >
+                        Download
+                      </button>
+                      <button
                         onClick={() => handleDeleteMaterial(material.id)}
                         className="delete-btn"
                       >
                         Delete
                       </button>
-                      {downloadUrl ? (
-                        <button onClick={() => handleDownload(downloadUrl, material.filename)}>
-                          Download
-                        </button>
-                      ) : (
-                        <span>Download not available</span>
-                      )}
                     </div>
                   </div>
                 );
