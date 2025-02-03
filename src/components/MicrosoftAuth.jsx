@@ -90,7 +90,7 @@ const MicrosoftAuth = () => {
 
     return (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
-            <h1>Microsoft OAuth 2.0 с PKCE</h1>
+            <h1>Microsoft OAuth 2.0</h1>
             <button
                 onClick={handleLogin}
                 style={{
@@ -103,7 +103,7 @@ const MicrosoftAuth = () => {
                     cursor: "pointer",
                 }}
             >
-                Авторизоваться
+                Login
             </button>
         </div>
     );
